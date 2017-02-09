@@ -44,6 +44,6 @@ class LoginController extends Controller
 
     public function handleProviderCallback($provider) {
       $user = Socialite::driver($provider)->user();
-      return $user;
+      return json_encode($user);
     }
 }
