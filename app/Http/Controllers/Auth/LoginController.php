@@ -47,24 +47,22 @@ class LoginController extends Controller
     }
 
     public function handleProviderCallback($provider) {
-      $socialiteUser = Socialite::driver($provider)
-              ->fields(['first_name', 'last_name', 'email', 'id'])
-              ->user();
-      $socialiteLogin = SocialiteLogin::where('social_id', $socialiteUser->getId());
+      $socialiteUser = $this->getSocialiteUser($provider);
+      $socialiteLogin = SocialiteLogin::where('social_id', $socialiteUser->social_id);
 
       if($socialiteLogin->exists()) {
         Auth::login($socialiteLogin->first()->user);
       }else{
         $newUser = User::create([
-          'firstname' => $socialiteUser->getRaw()['first_name'],
-          'lastname' => $socialiteUser->getRaw()['last_name'],
-          'email' => $socialiteUser->getEmail(),
+          'firstname' => $socialiteUser->firstname,
+          'lastname' => $socialiteUser->lastname,
+          'email' => $socialiteUser->email,
           'password' => ''
         ]);
 
         SocialiteLogin::create([
           'user_id' => $newUser->id,
-          'social_id' => $socialiteUser->getId(),
+          'social_id' => $socialiteUser->social_id,
           'provider' => $provider
           ]);
 
@@ -73,5 +71,30 @@ class LoginController extends Controller
       }
 
       return redirect($this->redirectPath());
+    }
+
+    public function getSocialiteUser($provider) {
+      $user = (object)[];
+
+      switch($provider) {
+        case 'facebook':
+          $socialiteUser = Socialite::driver($provider)
+                                      ->fields(['first_name', 'last_name', 'email', 'id'])
+                                      ->user();
+          $user->firstname = $socialiteUser->getRaw()['first_name'];
+          $user->lastname = $socialiteUser->getRaw()['last_name'];
+          $user->social_id = $socialiteUser->getId();
+          $user->email = $socialiteUser->getEmail();
+          break;
+        case 'google':
+          $socialiteUser = Socialite::driver($provider)->user();
+          $user->firstname = $socialiteUser->getRaw()['name']['familyName'];
+          $user->lastname = $socialiteUser->getRaw()['name']['givenName'];
+          $user->social_id = $socialiteUser->getId();
+          $user->email = $socialiteUser->getEmail();
+          break;
+      }
+
+      return $user;
     }
 }
