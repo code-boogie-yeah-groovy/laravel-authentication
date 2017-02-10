@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
+use App\SocialiteLogin;
 use Socialite;
+use Auth;
+
 
 class LoginController extends Controller
 {
@@ -43,7 +47,31 @@ class LoginController extends Controller
     }
 
     public function handleProviderCallback($provider) {
-      $user = Socialite::driver($provider)->user();
-      return json_encode($user);
+      $socialiteUser = Socialite::driver($provider)
+              ->fields(['first_name', 'last_name', 'email', 'id'])
+              ->user();
+      $socialiteLogin = SocialiteLogin::where('social_id', $socialiteUser->getId());
+
+      if($socialiteLogin->exists()) {
+        Auth::login($socialiteLogin->first()->user);
+      }else{
+        $newUser = User::create([
+          'firstname' => $socialiteUser->getRaw()['first_name'],
+          'lastname' => $socialiteUser->getRaw()['last_name'],
+          'email' => $socialiteUser->getEmail(),
+          'password' => ''
+        ]);
+
+        SocialiteLogin::create([
+          'user_id' => $newUser->id,
+          'social_id' => $socialiteUser->getId(),
+          'provider' => $provider
+          ]);
+
+        Auth::login($newUser);
+
+      }
+
+      return redirect($this->redirectPath());
     }
 }
