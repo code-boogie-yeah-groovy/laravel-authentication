@@ -69,6 +69,12 @@
             <a href="/auth/google" class="btn btn-block btn-social btn-google">
               <span class="fa fa-google"></span> Sign in with Google
             </a>
+
+            @if(session('emailExists'))
+              <div class="alert alert-danger" style="margin-top: 24px">
+                <strong>Error! </strong>Your email {{ session('emailExists') }} already exists!
+              </div>
+            @endif
           </div>
         </div>
       </div>

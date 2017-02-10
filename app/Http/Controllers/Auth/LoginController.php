@@ -9,7 +9,6 @@ use App\SocialiteLogin;
 use Socialite;
 use Auth;
 
-
 class LoginController extends Controller
 {
     /*
@@ -51,8 +50,15 @@ class LoginController extends Controller
       $socialiteLogin = SocialiteLogin::where('social_id', $socialiteUser->social_id);
 
       if($socialiteLogin->exists()) {
+
         Auth::login($socialiteLogin->first()->user);
+
       }else{
+
+        if($this->isEmailExists($socialiteUser->email)) {
+          return redirect('/login')->with('emailExists', $socialiteUser->email);
+        }
+
         $newUser = User::create([
           'firstname' => $socialiteUser->firstname,
           'lastname' => $socialiteUser->lastname,
@@ -73,7 +79,7 @@ class LoginController extends Controller
       return redirect($this->redirectPath());
     }
 
-    public function getSocialiteUser($provider) {
+    private function getSocialiteUser($provider) {
       $user = (object)[];
 
       switch($provider) {
@@ -88,13 +94,17 @@ class LoginController extends Controller
           break;
         case 'google':
           $socialiteUser = Socialite::driver($provider)->user();
-          $user->firstname = $socialiteUser->getRaw()['name']['familyName'];
-          $user->lastname = $socialiteUser->getRaw()['name']['givenName'];
+          $user->firstname = $socialiteUser->getRaw()['name']['givenName'];
+          $user->lastname = $socialiteUser->getRaw()['name']['familyName'];
           $user->social_id = $socialiteUser->getId();
           $user->email = $socialiteUser->getEmail();
           break;
       }
 
       return $user;
+    }
+
+    private function isEmailExists($email) {
+      return User::where('email', $email)->exists();
     }
 }
