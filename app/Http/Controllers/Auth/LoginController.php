@@ -90,7 +90,8 @@ class LoginController extends Controller
           $user->firstname = $socialiteUser->getRaw()['first_name'];
           $user->lastname = $socialiteUser->getRaw()['last_name'];
           $user->social_id = $socialiteUser->getId();
-          $user->email = $socialiteUser->getEmail();
+          $email = trim($socialiteUser->getEmail());
+          $user->email = $email === '' ? null:$email;
           break;
         case 'google':
           $socialiteUser = Socialite::driver($provider)->user();
