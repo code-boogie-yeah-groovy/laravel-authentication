@@ -44,9 +44,32 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+                    @if (Auth::guest())
+                      <ul class="nav navbar-nav">
+                          &nbsp;
+                        </ul>
+                    @else
+                      <!--Needs routing-->
+                      <ul class="nav navbar-nav nav-pills" role="navigation">
+                        <li><a role="presentation" class="active" href="#">Popular</a></li>
+                        <li><a role="presentation" href="#">Trending</a></li>
+                        <li><a role="presentation"href="#">New</a></li>
+                        <li role="presentation" class="dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Categories<span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Dogs</a></li>
+                            <li><a href="#">Cats</a></li>
+                            <li><a href="#">Birds</a></li>
+                            <li><a href="#">Fishes</a></li>
+                            <li><a href="#">Exotic</a></li>
+                          </ul>
+                        </li>
+                        <li><a role="presentation"href="#">Forum</a></li>
+                        <li><a role="presentation"href="#">Trading</a></li>
+                      </ul>
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -61,6 +84,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                      <!--Needs routing -->
+                                      <a href="#">Add Post</a>
+                                      <a href="#">View Profile</a>
+                                      <a href="#">Edit Profile</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
