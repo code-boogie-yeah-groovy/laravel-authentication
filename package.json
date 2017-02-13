@@ -13,5 +13,23 @@
     "laravel-mix": "^0.7.2",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
-  }
+  },
+  "name": "Furbuddies",
+  "description": "<p align=\"center\"><img src=\"https://laravel.com/assets/img/components/logo-laravel.svg\"></p>",
+  "version": "1.0.0",
+  "main": "webpack.mix.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-boogie-yeah-groovy/laravel-authentication.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/code-boogie-yeah-groovy/laravel-authentication/issues"
+  },
+  "homepage": "https://github.com/code-boogie-yeah-groovy/laravel-authentication#readme"
 }

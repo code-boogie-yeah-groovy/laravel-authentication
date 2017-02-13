@@ -14,16 +14,22 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap-social.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
 </head>
 <body>
     <div id="app">
+      <div id="overlay">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -78,6 +84,16 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            <li>
+                              <form class="navbar-form" role="search">
+                                <div class="input-group add-on">
+                                  <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                                  <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                  </div>
+                                </div>
+                              </form>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->fullname() }} <span class="caret"></span>
@@ -86,7 +102,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                       <!--Needs routing -->
-                                      <a href="#">Add Post</a>
+                                      <a href="#" data-toggle="modal" data-target="#createModal">Add Post</a>
                                       <a href="#">View Profile</a>
                                       <a href="#">Edit Profile</a>
                                     </li>
@@ -112,7 +128,11 @@
         @yield('content')
     </div>
 
+    <!-- Modal -->
+    <div id="createModal" class="modal fade" role="dialog">
+      @include('post')
+    </div>
+
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
 </body>
 </html>
