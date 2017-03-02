@@ -19,7 +19,6 @@
             <span class="glyphicon glyphicon-film"></span>Upload a video
           </button>
         </div>
-      </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -27,3 +26,7 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+</script>
