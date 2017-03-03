@@ -5,11 +5,12 @@
 <section class="row new-post">
   <div class="col-md-6 col-md-offset-3">
     <header><h3>What do you want to say?</h3></header>
-    <form class="" action="index.html" method="post">
+    <form class="" action="{{ route('post.create') }}" method="post">
       <div class="form-group">
-        <textarea class="form-control" name="new-post" id="new-post" rows="5" placeholder="Your post"></textarea>
+        <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Your post"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Post</button>
+      <input type="hidden" value="{{ Session::token() }}" name="_token">
     </form>
   </div>
 </section>

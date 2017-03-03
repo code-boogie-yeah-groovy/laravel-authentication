@@ -22,4 +22,12 @@ Route::group(['prefix' => 'auth/{provider}'], function () {
   Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
 });
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', [
+  'uses' => 'HomeController@index',
+  'as' => 'home'
+]);
+
+Route::post('/createpost', [
+  'uses' => 'PostController@postCreatePost',
+  'as' => 'post.create'
+]);

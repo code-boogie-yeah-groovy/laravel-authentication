@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function fullname() {
       return "$this->firstname $this->lastname";
     }
+
+    public function posts() {
+      return $this->hasMany('App\Post');
+    }
 }
