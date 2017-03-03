@@ -14,8 +14,8 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap-social.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
     <!-- Scripts -->
     <script src="js/jquery-3.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -31,7 +31,7 @@
     <div id="app">
       <div id="overlay">
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+            <div class="container container-fluid">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
