@@ -23,7 +23,7 @@ Route::group(['prefix' => 'auth/{provider}'], function () {
 });
 
 Route::get('/home', [
-  'uses' => 'HomeController@index',
+  'uses' => 'PostController@index',
   'as' => 'home'
 ]);
 
