@@ -31,3 +31,13 @@ Route::post('/createpost', [
   'uses' => 'PostController@postCreatePost',
   'as' => 'post.create'
 ]);
+
+Route::get('/post-delete/{post_id}', [
+  'uses' => 'PostController@getPostDelete',
+  'as' => 'post.delete'
+]);
+
+Route::post('/edit', [
+  'uses' => 'PostController@postEditPost',
+  'as' => 'edit'
+]);

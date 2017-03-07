@@ -19,20 +19,30 @@
   <div class="col-md-6 col-md-offset-3">
     <header><h3>What othere people say?</h3></header>
     @foreach($posts as $post)
-    <article class="post">
+    <article class="post" data-postid="{{ $post->id }}">
       <p>{{ $post->body }}</p>
       <div class="info">
         Posted by {{ $post->user->fullname() }} on {{ $post->created_at }}
       </div>
       <div class="interactions">
         <a href="#">Upvote</a>|
-        <a href="#">Downvote</a>|
-        <a href="#">Edit</a>|
-        <a href="#">Delete</a>
+        <a href="#">Downvote</a>
+        @if(Auth::user() == $post->user)
+        |
+        <a href="#" class="edit-post">Edit</a>|
+        <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
+        @endif
       </div>
     </article>
     @endforeach
   </div>
 </section>
+<!--Edit post Modal-->
+@include('edit-post')
 </div>
+
+<script>
+  var token = '{{ Session::token() }}';
+  var url = '{{ route('edit') }}';
+</script>
 @endsection
