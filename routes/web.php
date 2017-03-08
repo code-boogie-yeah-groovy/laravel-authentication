@@ -56,3 +56,8 @@ Route::post('/edit', [
   'uses' => 'PostController@postEditPost',
   'as' => 'edit'
 ]);
+
+Route::post('/vote', [
+  'uses' => 'PostController@postVotePost',
+  'as' => 'vote'
+]);

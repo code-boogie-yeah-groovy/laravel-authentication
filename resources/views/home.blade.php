@@ -24,9 +24,10 @@
       <div class="info">
         Posted by {{ $post->user->fullname() }} on {{ $post->created_at }}
       </div>
+        <span id="points">{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}</span>
       <div class="interactions">
-        <a href="#">Upvote</a>|
-        <a href="#">Downvote</a>
+        <a href="#" class="vote">Upvote</a>|
+        <a href="#" class="vote">Downvote</a>
         @if(Auth::user() == $post->user)
         |
         <a href="#" class="edit-post">Edit</a>|
@@ -43,6 +44,7 @@
 
 <script>
   var token = '{{ Session::token() }}';
-  var url = '{{ route('edit') }}';
+  var urlEdit = '{{ route('edit') }}';
+  var urlVote = '{{ route('vote') }}';
 </script>
 @endsection
