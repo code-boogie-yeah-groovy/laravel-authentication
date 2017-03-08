@@ -22,6 +22,21 @@ Route::group(['prefix' => 'auth/{provider}'], function () {
   Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
 });
 
+Route::get('/account',[
+  'uses' => 'UserController@getAccount',
+  'as' => 'account'
+]);
+
+Route::post('/updateaccount', [
+  'uses' => 'UserController@postSaveAccount',
+  'as' => 'account.save'
+]);
+
+Route::get('/userimage/{filename}', [
+  'uses' => 'UserController@getUserImage',
+  'as' => 'account.image'
+]);
+
 Route::get('/home', [
   'uses' => 'PostController@index',
   'as' => 'home'

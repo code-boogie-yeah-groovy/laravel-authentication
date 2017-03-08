@@ -104,7 +104,7 @@
                                       <!--Needs routing -->
                                       <a href="#" data-toggle="modal" data-target="#createModal">Add Post</a>
                                       <a href="#">View Profile</a>
-                                      <a href="#">Edit Profile</a>
+                                      <a href="{{ route('account') }}">Edit Profile</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
