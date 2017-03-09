@@ -1,3 +1,17 @@
+body {
+  padding-top: 70px;
+}
+
+.avatar, .avatar-thumbnail {
+  height: 24px;
+  width: auto;
+}
+
+.avatar-thumbnail {
+  float: left;
+  margin: 2px;
+}
+
 .new-post {
   padding: 16px 0;
 }
@@ -16,6 +30,11 @@
 .posts .post .info {
   color: #aaa;
   font-style: italic;
+  margin: 20px 0;
+}
+
+.post-text {
+  padding: 2px;
 }
 
 .error,

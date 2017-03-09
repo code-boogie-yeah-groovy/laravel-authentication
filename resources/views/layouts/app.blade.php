@@ -30,7 +30,7 @@
 <body>
     <div id="app">
       <div id="overlay">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container container-fluid">
                 <div class="navbar-header">
 
@@ -70,6 +70,7 @@
                             <li><a href="#">Birds</a></li>
                             <li><a href="#">Fishes</a></li>
                             <li><a href="#">Exotic</a></li>
+                            <li><a href="#">Others</a></li>
                           </ul>
                         </li>
                         <li><a role="presentation"href="#">Forum</a></li>
@@ -96,7 +97,8 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->fullname() }} <span class="caret"></span>
+                                  <img src="{{ Auth::user()->avatar }}" class="avatar img-fluid img-rounded">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">

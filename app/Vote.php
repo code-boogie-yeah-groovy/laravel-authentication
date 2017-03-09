@@ -16,8 +16,4 @@ class Vote extends Model
       return $this->belongsTo('App\Post');
     }
 
-    public function points ()
-    {
-      return $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count();
-    }
 }

@@ -183,6 +183,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //Cloudder
+        JD\Cloudder\CloudderServiceProvider::class,
+
     ],
 
     /*
@@ -232,7 +235,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
 
     ],
 

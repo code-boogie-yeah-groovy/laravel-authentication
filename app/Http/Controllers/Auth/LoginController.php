@@ -60,10 +60,10 @@ class LoginController extends Controller
         }
 
         $newUser = User::create([
-          'firstname' => $socialiteUser->firstname,
-          'lastname' => $socialiteUser->lastname,
+          'name' => $socialiteUser->name,
           'email' => $socialiteUser->email,
-          'password' => ''
+          'password' => '',
+          'avatar' => $socialiteUser->avatar
         ]);
 
         SocialiteLogin::create([
@@ -84,20 +84,18 @@ class LoginController extends Controller
 
       switch($provider) {
         case 'facebook':
-          $socialiteUser = Socialite::driver($provider)
-                                      ->fields(['first_name', 'last_name', 'email', 'id'])
-                                      ->user();
-          $user->firstname = $socialiteUser->getRaw()['first_name'];
-          $user->lastname = $socialiteUser->getRaw()['last_name'];
+          $socialiteUser = Socialite::driver($provider)->user();
+          $user->name = $socialiteUser->getName();
           $user->social_id = $socialiteUser->getId();
+          $user->avatar = $socialiteUser->getAvatar();
           $email = trim($socialiteUser->getEmail());
           $user->email = $email === '' ? null:$email;
           break;
         case 'google':
           $socialiteUser = Socialite::driver($provider)->user();
-          $user->firstname = $socialiteUser->getRaw()['name']['givenName'];
-          $user->lastname = $socialiteUser->getRaw()['name']['familyName'];
+          $user->name = $socialiteUser->getName();
           $user->social_id = $socialiteUser->getId();
+          $user->avatar = $socialiteUser->getAvatar();
           $user->email = $socialiteUser->getEmail();
           break;
         case 'twitter':
@@ -108,6 +106,9 @@ class LoginController extends Controller
           $user->lastname = $name[count($name) - 1];
           $user->social_id = $socialiteUser->getId();
           $user->email = $socialiteUser->getEmail();
+          break;
+
+        case 'instagram':
           break;
       }
 

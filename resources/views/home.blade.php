@@ -17,12 +17,15 @@
 </section>
 <section class="row posts">
   <div class="col-md-6 col-md-offset-3">
-    <header><h3>What othere people say?</h3></header>
+    <header><h3>What other people say?</h3></header>
     @foreach($posts as $post)
     <article class="post" data-postid="{{ $post->id }}">
-      <p>{{ $post->body }}</p>
       <div class="info">
-        Posted by {{ $post->user->fullname() }} on {{ $post->created_at }}
+        <img src="{{ Auth::user()->avatar }}" class="avatar-thumbnail img-responsive">
+        {{ $post->user->name }} posted this on {{ $post->created_at }}
+      </div>
+      <div class="post-text">
+      <p>{{ $post->body }}</p>
       </div>
         <span id="points">{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}</span>
       <div class="interactions">
