@@ -9,6 +9,9 @@
     <div class="col-md-6 col-md-offset-3">
       <header>
         <h3>Your Account</h3>
+        <div>
+          <img src="{{ Auth::user()->avatar }}" alt="" class="img-responsive" style="inline: block; max-height: 100px; width: auto;">
+        </div>
       </header>
       <form action="{{ route('account.save') }}" method="post" enctype="multipart/form-data">
         <div class="form-group">
@@ -24,9 +27,4 @@
       </form>
     </div>
   </section>
-    <section class="row new-post">
-      <div class="col-md-6 col-md-offset-3">
-        <img src="{{ Auth::user()->avatar }}" alt="" class="img-responsive">
-      </div>
-    </section>
 @endsection

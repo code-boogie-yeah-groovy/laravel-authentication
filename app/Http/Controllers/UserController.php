@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use JD\Cloudder\Facades\Cloudder;
+use Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -24,12 +26,12 @@ class UserController extends Controller
       ]);
       $user = Auth::user();
       $user->name = $request['name'];
-      $user->update();
+      $date = Carbon::now()->timestamp;
       $file = $request->file('image');
-      $filename = $user->id . '.jpg';
-      if ($file) {
-        Storage::disk('local')->put($filename, File::get($file));
-      }
+      $filename = 'avatar' . $user->id . '-' . $date .  '.jpg';
+      Cloudder::upload($file, $filename);
+      $user->avatar = Cloudder::show($filename);
+      $user->update();
       return redirect()->route('account');
     }
 
