@@ -9,7 +9,7 @@ body {
 
 .avatar-thumbnail {
   float: left;
-  margin: 2px;
+  margin-right: 10px;
 }
 
 .new-post {

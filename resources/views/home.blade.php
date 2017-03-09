@@ -21,7 +21,7 @@
     @foreach($posts as $post)
     <article class="post" data-postid="{{ $post->id }}">
       <div class="info">
-        <img src="{{ Auth::user()->avatar }}" class="avatar-thumbnail img-responsive">
+        <img src="{{ $post->user->avatar }}" class="avatar-thumbnail img-responsive">
         {{ $post->user->name }} posted this on {{ $post->created_at }}
       </div>
       <div class="post-text">
