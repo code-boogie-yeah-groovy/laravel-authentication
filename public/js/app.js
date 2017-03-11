@@ -5,10 +5,10 @@ $(document).ready( function() {
     $('.post').find('.edit-post').on('click', function(event) {
       event.preventDefault();
 
-      postBodyElement = event.target.parentNode.parentNode.childNodes[1]
+      postBodyElement = event.target.parentNode.parentNode.childNodes[3]
       var postBody = postBodyElement.textContent;
       postId = event.target.parentNode.parentNode.dataset['postid'];
-      $('#post-body').val(postBody);
+      $('#post-body').val($.trim(postBody));
       $('#edit-modal').modal();
     });
 

@@ -25,7 +25,7 @@
         {{ $post->user->name }} posted this on {{ $post->created_at }}
       </div>
       <div class="post-text">
-      <p>{{ $post->body }}</p>
+      <p>{{ app('profanityFilter')->filter($post->body) }}</p>
       </div>
         <span id="points">{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}</span>
       <div class="interactions">

@@ -186,6 +186,9 @@ return [
         //Cloudder
         JD\Cloudder\CloudderServiceProvider::class,
 
+        //Profanity
+        Askedio\Laravel5ProfanityFilter\Providers\ProfanityFilterServiceProvider::class,
+
     ],
 
     /*
