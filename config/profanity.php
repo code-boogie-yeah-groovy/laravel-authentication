@@ -14,7 +14,7 @@ return [
     'replaceFullWords' => true,
 
     /* Replace bad words with this, based on length of word */
-    'replaceWith' => '&%^@#',
+    'replaceWith' => '&%@#',
 
     /* Replace related letters */
     'strReplace' => [
@@ -50,5 +50,7 @@ return [
     'defaults' => [
         'fuck',
         'shit',
+        'boobs',
+        'tits',
     ],
 ];

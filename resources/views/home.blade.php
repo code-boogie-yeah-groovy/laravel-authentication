@@ -19,15 +19,15 @@
   <div class="col-md-6 col-md-offset-3">
     <header><h3>What other people say?</h3></header>
     @foreach($posts as $post)
-    <article class="post" data-postid="{{ $post->id }}">
+    <article class="post" data-postid="{{ $post->id }}" data-points="{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}">
       <div class="info">
         <img src="{{ $post->user->avatar }}" class="avatar-thumbnail img-responsive">
         {{ $post->user->name }} posted this on {{ $post->created_at }}
       </div>
       <div class="post-text">
-      <p>{{ app('profanityFilter')->filter($post->body) }}</p>
+        <p>{{ app('profanityFilter')->filter($post->body) }}</p>
       </div>
-        <span id="points">{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}</span>
+      <span class="points badge badge-default">{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}</span>
       <div class="interactions">
         <a href="#" class="vote">Upvote</a>|
         <a href="#" class="vote">Downvote</a>

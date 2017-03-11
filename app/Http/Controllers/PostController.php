@@ -66,6 +66,7 @@ class PostController extends Controller
   {
     $post_id = $request['postId'];
     $is_vote = $request['isVote'] === 'true';
+    $post_points = $request['points'];
     $update = false;
     $post = Post::find($post_id);
     if (!$post) {
