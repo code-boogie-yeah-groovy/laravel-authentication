@@ -52,5 +52,10 @@ return [
         'shit',
         'boobs',
         'tits',
+        'piss',
+        'cunt',
+        'cocksucker',
+        'motherfucker',
+        'tits',
     ],
 ];

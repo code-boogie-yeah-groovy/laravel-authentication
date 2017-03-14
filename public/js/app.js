@@ -42,4 +42,32 @@ $(document).ready( function() {
         }
       });
     });
+
+    //Avatar Preview
+    function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#avatar_preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#input_image").change(function(){
+      if(this.files[0].type.indexOf("image")==-1){
+            alert("Invalid File Type");
+            return false;
+        } else if (this.files[0].size>528385) {
+          alert("Image Size should not be greater than 500Kb");
+          return false;
+        } else {
+          readURL(this);
+        }
+    });
+    //
+
 });

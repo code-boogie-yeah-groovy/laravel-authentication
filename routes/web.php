@@ -22,9 +22,9 @@ Route::group(['prefix' => 'auth/{provider}'], function () {
   Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
 });
 
-Route::get('/account',[
-  'uses' => 'UserController@getAccount',
-  'as' => 'account'
+Route::get('/edit-account',[
+  'uses' => 'UserController@getEditAccount',
+  'as' => 'account.edit'
 ]);
 
 Route::post('/updateaccount', [
@@ -32,9 +32,9 @@ Route::post('/updateaccount', [
   'as' => 'account.save'
 ]);
 
-Route::get('/userimage/{filename}', [
-  'uses' => 'UserController@getUserImage',
-  'as' => 'account.image'
+Route::get('/account', [
+  'uses' => 'UserController@getAccount',
+  'as' => 'account'
 ]);
 
 Route::get('/home', [

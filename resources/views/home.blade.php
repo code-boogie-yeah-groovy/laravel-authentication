@@ -24,6 +24,13 @@
         <img src="{{ $post->user->avatar }}" class="avatar-thumbnail img-responsive">
         {{ $post->user->name }} posted this on {{ $post->created_at }}
       </div>
+      <div class="post-media">
+        <img src="" class="post-image"/>
+        <video width="400" class="post-video" controls>
+          <source src="" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
       <div class="post-text">
         <p>{{ app('profanityFilter')->filter($post->body) }}</p>
       </div>

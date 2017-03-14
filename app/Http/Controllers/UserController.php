@@ -14,9 +14,13 @@ use Carbon\Carbon;
 
 class UserController extends Controller
 {
-    public function getAccount()
+    public function getAccount() {
+      return view('account');
+    }
+
+    public function getEditAccount()
     {
-      return view('account', ['user' => Auth::user()]);
+      return view('edit-account', ['user' => Auth::user()]);
     }
 
     public function postSaveAccount(Request $request)
@@ -32,12 +36,6 @@ class UserController extends Controller
       Cloudder::upload($file, $filename);
       $user->avatar = Cloudder::show($filename);
       $user->update();
-      return redirect()->route('account');
-    }
-
-    public function getUserImage($filename)
-    {
-      $file = Storage::disk('local')->get($filename);
-      return new Response($file, 200);
+      return redirect()->route('account.edit');
     }
 }
