@@ -38,7 +38,7 @@ class PostController extends Controller
     $post->body = $request['body'];
     $date = Carbon::now()->timestamp;
     $file = $request->file('media');
-    if($_FILES['media']['name'] != "") {
+    if($_FILES['media']['name'] != "" && $_FILES['media']['size'] != 0) {
       $filename = 'post' . '-' . $date .  '.jpg';
       Cloudder::upload($file, $filename);
       $post->image = Cloudder::show($filename);
