@@ -8,7 +8,7 @@
     <header><h3>What do you want to say?</h3></header>
     <form class="" action="{{ route('post.create') }}" method="post" enctype="multipart/form-data">
       <div class="form-group">
-        <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Your post"></textarea>
+        <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Your post" style="resize:none;"></textarea>
       </div>
       <div class="form-group">
         <span class="btn btn-default btn-file">
@@ -45,13 +45,20 @@
       <span class="points badge badge-default">{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}</span>
       <div class="interactions">
         <a href="#" class="vote">Upvote</a>|
-        <a href="#" class="vote">Downvote</a>
+        <a href="#" class="vote">Downvote</a>|
+        <a href="#" class="comment">Comment</a>|
         @if(Auth::user() == $post->user)
-        |
         <a href="#" class="edit-post">Edit</a>|
         <a  class="delete-post" data-toggle="confirmation" href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
         @endif
+        @if(Auth::user() != $post->user)
+        <a href="#" class="report">Report this post</a>
+        @endif
       </div>
+        <div class="write-comment">
+          <input type="text" name="comment"  id="comment_body{{ $post->id }}">
+          <a class="post-comment" href="{{ route('comment.write') }}">Post Comment</a>
+        </div>
     </article>
     @endforeach
   </div>

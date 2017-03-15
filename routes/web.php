@@ -61,3 +61,8 @@ Route::post('/vote', [
   'uses' => 'PostController@postVotePost',
   'as' => 'vote'
 ]);
+
+Route::get('/writecomment', [
+  'uses' => 'PostController@getWriteComment',
+  'as' => 'comment.write'
+]);

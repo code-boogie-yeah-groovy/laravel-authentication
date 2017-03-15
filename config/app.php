@@ -189,6 +189,9 @@ return [
         //Profanity
         Askedio\Laravel5ProfanityFilter\Providers\ProfanityFilterServiceProvider::class,
 
+        //Comment
+        Actuallymab\LaravelComment\LaravelCommentServiceProvider::class
+
     ],
 
     /*

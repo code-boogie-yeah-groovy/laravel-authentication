@@ -12,7 +12,7 @@
           <header><h3>What do you want to say?</h3></header>
           <form class="" action="{{ route('post.create') }}" method="post" enctype="multipart/form-data">
             <div class="form-group">
-              <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Your post"></textarea>
+              <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Your post" style="resize:none;"></textarea>
             </div>
             <div class="form-group">
               <span class="btn btn-default btn-file">

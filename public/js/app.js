@@ -5,7 +5,7 @@ $(document).ready( function() {
     $('.post').find('.edit-post').on('click', function(event) {
       event.preventDefault();
 
-      postBodyElement = event.target.parentNode.parentNode.childNodes[3]
+      postBodyElement = event.target.parentNode.parentNode.childNodes[5]
       var postBody = postBodyElement.textContent;
       postId = event.target.parentNode.parentNode.dataset['postid'];
       $('#post-body').val($.trim(postBody));
@@ -71,6 +71,11 @@ $(document).ready( function() {
 
     $('.delete-post').on('click', function(){
       return confirm('delete?');
+    });
+
+    $('.comment').on('click', function() {
+      var $target = $($(this).attr('data-toggle'));
+      $target.toggle();
     });
 
 });

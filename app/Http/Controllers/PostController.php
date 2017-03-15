@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
 use JD\Cloudder\Facades\Cloudder;
+use Actuallymab\LaravelComment\LaravelCommentServiceProvider;
 
 
 class PostController extends Controller
@@ -105,6 +106,23 @@ class PostController extends Controller
         $vote->save();
     }
     return null;
+  }
+
+  public function getWriteComment(Request $request)
+  {
+    //  $post_id = $request['postId'];
+     $user = Auth::user();
+    //  $post = Post::find($post_id);
+    // $this->validate($request, [
+      // 'comment' => 'required'
+    // ]);
+
+    //$user = User::find(1);
+    $post = Post::find(2);
+
+    // $user->comment(Commentable $model, $comment = '', $rate = 0);
+    $user->comment($post, 'Lorem ipsum ..', 3);
+
   }
 
 }

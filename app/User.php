@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Actuallymab\LaravelComment\CanComment;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use CanComment;
     /**
      * The attributes that are mass assignable.
      *
