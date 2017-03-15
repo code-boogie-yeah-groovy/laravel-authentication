@@ -57,5 +57,12 @@ return [
         'cocksucker',
         'motherfucker',
         'tits',
+        //filipino
+        'puta',
+        'putang ina',
+        'putangina',
+        'hayop ka',
+        'hayopka',
+        'letse',
     ],
 ];

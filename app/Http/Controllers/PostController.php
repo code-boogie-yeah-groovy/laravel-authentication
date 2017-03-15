@@ -6,6 +6,9 @@ use App\Post;
 use App\Vote;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
+use JD\Cloudder\Facades\Cloudder;
+
 
 class PostController extends Controller
 {
@@ -25,12 +28,21 @@ class PostController extends Controller
   {
     //Validation
     $this->validate($request, [
-      'body' => 'required|max:1000'
+      'body' => 'required|max:1000',
+      'image' => 'sometimes|mimes:jpeg,bmp,png|max:528385',
+      'video' => 'sometimes|mimes:mp4,mov,ogg,qt | max:20000'
     ]);
 
     //Save to database
     $post = new Post();
     $post->body = $request['body'];
+    $date = Carbon::now()->timestamp;
+    $file = $request->file('media');
+    if($_FILES['media']['name'] != "") {
+      $filename = 'post' . '-' . $date .  '.jpg';
+      Cloudder::upload($file, $filename);
+      $post->image = Cloudder::show($filename);
+    }
     $message = 'There was an error.';
     if($request->user()->posts()->save($post)) {
       $message = 'Posted successfully.';

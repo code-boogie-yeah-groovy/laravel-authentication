@@ -43,7 +43,7 @@ $(document).ready( function() {
       });
     });
 
-    //Avatar Preview
+
     function readURL(input) {
 
     if (input.files && input.files[0]) {
@@ -57,17 +57,20 @@ $(document).ready( function() {
       }
     }
 
-    $("#input_image").change(function(){
+    $("#input_avatar").change(function(){
       if(this.files[0].type.indexOf("image")==-1){
             alert("Invalid File Type");
             return false;
         } else if (this.files[0].size>528385) {
-          alert("Image Size should not be greater than 500Kb");
-          return false;
+            alert("Image Size should not be greater than 500Kb");
+            return false;
         } else {
-          readURL(this);
+            readURL(this);
         }
     });
-    //
+
+    $('.delete-post').on('click', function(){
+      return confirm('delete?');
+    });
 
 });

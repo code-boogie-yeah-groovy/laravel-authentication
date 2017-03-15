@@ -12,13 +12,13 @@
       <form action="{{ route('account.save') }}" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <div>
-            <img src="{{ $user->avatar }}" alt="" class="big-avatar center-block img-responsive" id="avatar_preview">
+            <img src="{{ $user->avatar }}" alt="" class="image_preview big-avatar center-block img-responsive" id="avatar_preview">
           </div>
         </div>
         <div class="form-group">
           <label for="image">Change Avatar:</label>
           <span class="btn btn-default btn-file">
-            Browse<input type="file" name="image" accept="image/*" class="form-control" id="input_image">
+            Browse<input type="file" name="image" accept="image/*" class="input_image form-control" id="input_avatar">
           </span>
         </div>
         <div class="form-group">

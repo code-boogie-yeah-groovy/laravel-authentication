@@ -10,7 +10,12 @@
       <div class="form-group">
         <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Your post"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Post</button>
+      <div class="form-group">
+        <span class="btn btn-default btn-file">
+          Add Photo/Video<input type="file" name="media" accept="image/*, video/mp4,video/x-m4v,video/*" class="input_image form-control">
+        </span>
+        <button type="submit" class="btn btn-primary">Post</button>
+      </div>
       <input type="hidden" value="{{ Session::token() }}" name="_token">
     </form>
   </div>
@@ -25,11 +30,14 @@
         {{ $post->user->name }} posted this on {{ $post->created_at }}
       </div>
       <div class="post-media">
-        <img src="" class="post-image"/>
+        @if($post->image)
+        <img src="{{ $post->image }}" class="post-image"/>
+        @elseif($post->video)
         <video width="400" class="post-video" controls>
-          <source src="" type="video/mp4">
+          <source src="{{ $post->video }}" type="video/mp4">
           Your browser does not support HTML5 video.
         </video>
+        @endif
       </div>
       <div class="post-text">
         <p>{{ app('profanityFilter')->filter($post->body) }}</p>
@@ -41,7 +49,7 @@
         @if(Auth::user() == $post->user)
         |
         <a href="#" class="edit-post">Edit</a>|
-        <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
+        <a  class="delete-post" data-toggle="confirmation" href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
         @endif
       </div>
     </article>

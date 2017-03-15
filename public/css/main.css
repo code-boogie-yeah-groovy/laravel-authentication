@@ -31,8 +31,14 @@ header {
   margin-bottom: 20px;
 }
 
-video source[src=""], .post-image[src=""] {
-  display: none;
+.post-video < source[src=""], .post-image[src=""] {
+  display: none !important;
+}
+
+.post-image,.post-video {
+  min-width: 30vw;
+  max-width: 80vw;
+  height: auto;
 }
 
 .posts .post {

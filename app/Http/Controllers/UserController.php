@@ -14,6 +14,11 @@ use Carbon\Carbon;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     public function getAccount() {
       return view('account');
     }
@@ -26,7 +31,8 @@ class UserController extends Controller
     public function postSaveAccount(Request $request)
     {
       $this->validate($request, [
-        'name' => 'required|max:255'
+        'name' => 'required|max:255',
+        'avatar' => 'mimes:jpeg,bmp,png'
       ]);
       $user = Auth::user();
       $user->name = $request['name'];
