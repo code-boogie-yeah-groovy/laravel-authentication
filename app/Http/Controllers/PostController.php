@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
 use JD\Cloudder\Facades\Cloudder;
-use Actuallymab\LaravelComment\LaravelCommentServiceProvider;
+use App\Comment;
 
 
 class PostController extends Controller
@@ -22,7 +22,8 @@ class PostController extends Controller
   public function index()
   {
     $posts = Post::orderBy('created_at', 'desc')->get();
-    return view('home', ['posts' => $posts]);
+    $comments = Comment::orderBy('created_at', 'desc')->get();
+    return view('home', ['posts' => $posts, 'comments' => $comments]);
   }
 
   public function postCreatePost( Request $request )
@@ -108,20 +109,22 @@ class PostController extends Controller
     return null;
   }
 
-  public function getWriteComment(Request $request)
+  public function postWriteComment(Request $request)
   {
-    //  $post_id = $request['postId'];
-     $user = Auth::user();
-    //  $post = Post::find($post_id);
+    $post_id = $request['postId'];
+    $comment = $request['commentBody'];
+    $user = Auth::user();
+    $post = Post::find($post_id);
     // $this->validate($request, [
       // 'comment' => 'required'
     // ]);
 
     //$user = User::find(1);
-    $post = Post::find(2);
+    //$post = Post::where('id', $post_id)->first();
 
-    // $user->comment(Commentable $model, $comment = '', $rate = 0);
-    $user->comment($post, 'Lorem ipsum ..', 3);
+    //  $user->comment(Commentable $model, $comment = '', $rate = 0);
+    $user->comment($post, $comment, 5);
+    return redirect()->route('home')->with(['message' => 'Comment Posted']);
 
   }
 

@@ -55,10 +55,18 @@
         <a href="#" class="report">Report this post</a>
         @endif
       </div>
-        <div class="write-comment">
-          <input type="text" name="comment"  id="comment_body{{ $post->id }}">
-          <a class="post-comment" href="{{ route('comment.write') }}">Post Comment</a>
-        </div>
+      <div class="write-comment">
+        <input type="text" name="comment"  id="comment_body{{ $post->id }}">
+        <a href="#" class="post-comment">Post Comment</a>
+        <input type="hidden" value="{{ Session::token() }}" name="_token">
+      </div>
+      @foreach($comments as $comment )
+      @if($post->id == $comment->commentable_id)
+      <div class="comment" data-commentId="{{ $comment->id }}">
+        <span>{{ $comment->comment }}</span>
+      </div>
+      @endif
+      @endforeach
     </article>
     @endforeach
   </div>
@@ -71,5 +79,6 @@
   var token = '{{ Session::token() }}';
   var urlEdit = '{{ route('edit') }}';
   var urlVote = '{{ route('vote') }}';
+  var urlComment = '{{ route('comment.write') }}';
 </script>
 @endsection

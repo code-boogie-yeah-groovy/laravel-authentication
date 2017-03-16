@@ -1,7 +1,7 @@
 <?php
 /** actuallymab | 12.06.2016 - 01:51 */
 
-namespace Actuallymab\LaravelComment\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,6 +45,14 @@ class Comment extends Model
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function commented()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function post()
     {
         return $this->morphTo();
     }

@@ -78,4 +78,16 @@ $(document).ready( function() {
       $target.toggle();
     });
 
+    $('.post').find('.post-comment').on('click', function(event){
+      postId = event.target.parentNode.parentNode.dataset['postid'];
+      commentBody = $('#comment_body' + postId).val();
+      $.ajax({
+        method: 'POST',
+        url: urlComment,
+        data: {postId: postId, commentBody: commentBody, _token: token}
+      }).done(function(){
+        $('#comment_body' + postId).val = "";
+      });
+    });
+
 });

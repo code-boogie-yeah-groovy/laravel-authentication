@@ -63,6 +63,6 @@ Route::post('/vote', [
 ]);
 
 Route::get('/writecomment', [
-  'uses' => 'PostController@getWriteComment',
+  'uses' => 'PostController@postWriteComment',
   'as' => 'comment.write'
 ]);
