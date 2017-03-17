@@ -9,7 +9,6 @@ use Auth;
 use Carbon\Carbon;
 use JD\Cloudder\Facades\Cloudder;
 use App\Comment;
-use App\Cloudinary;
 
 
 class PostController extends Controller
@@ -70,11 +69,11 @@ class PostController extends Controller
     if(Auth::user() != $post->user){
       return redirect()->back();
     }
+    if ($post->media_id != null) {
+      Cloudder::delete($post->media_id);
+    }
+
     $post->delete();
-    // if ($post->image != null) {
-    //  Cloudder::destroyImage($post->image);
-      // Cloudder::delete($post->image);
-    // }
     return redirect()->route('home')->with(['message' => 'Successfully deleted']);
   }
 
