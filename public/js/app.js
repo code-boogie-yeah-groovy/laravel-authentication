@@ -80,7 +80,7 @@ $(document).ready( function() {
 
     $('.post').find('.post-comment').on('click', function(event){
       postId = event.target.parentNode.parentNode.dataset['postid'];
-      commentBody = $('#comment_body' + postId).val();
+      commentBody = $('#comment_body' . postId).val();
       $.ajax({
         method: 'POST',
         url: urlComment,

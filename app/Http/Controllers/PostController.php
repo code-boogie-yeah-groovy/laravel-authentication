@@ -70,7 +70,9 @@ class PostController extends Controller
       return redirect()->back();
     }
     if ($post->media_id != null) {
-      Cloudder::delete($post->media_id);
+      Cloudder::destroyImage($post->media_id, $options = array("resource_type" => $post->type ));
+      Cloudder::destroy($post->media_id, $options = array("resource_type" => $post->type ));
+      Cloudder::delete($post->media_id, $options = array("resource_type" => $post->type ));
     }
 
     $post->delete();
