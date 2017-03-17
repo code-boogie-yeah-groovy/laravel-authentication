@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use JD\Cloudder\Facades\Cloudder;
 use App\Comment;
+use App\Cloudinary;
 
 
 class PostController extends Controller
@@ -41,9 +42,20 @@ class PostController extends Controller
     $date = Carbon::now()->timestamp;
     $file = $request->file('media');
     if($_FILES['media']['name'] != "" && $_FILES['media']['size'] != 0) {
-      $filename = 'post' . '-' . $date .  '.jpg';
-      Cloudder::upload($file, $filename);
-      $post->image = Cloudder::show($filename);
+      $filename = 'post' . '-' . $date;
+      $mime = $file->getMimeType();
+      if ($mime == "video/x-flv" || $mime == "video/mp4" || $mime == "application/x-mpegURL" || $mime == "video/MP2T" || $mime == "video/3gpp" || $mime == "video/quicktime" || $mime == "video/x-msvideo" || $mime == "video/x-ms-wmv" || $mime == "video/webm") {
+        Cloudder::uploadVideo($file, $filename);
+        $post->type = 'video';
+        $post->media_id = $filename;
+      } elseif ($mime == "image/png" || $mime == "image/jpg" || $mime == "image/jpeg" || $mime == "image/gif") {
+        Cloudder::upload($file, $filename);
+        $post->type = 'image';
+        $post->media_id = $filename;
+      } else {
+        $message = 'Invalid media.';
+        return redirect()->route('home')->with(['message' => $message]);
+      }
     }
     $message = 'There was an error.';
     if($request->user()->posts()->save($post)) {
@@ -59,6 +71,10 @@ class PostController extends Controller
       return redirect()->back();
     }
     $post->delete();
+    // if ($post->image != null) {
+    //  Cloudder::destroyImage($post->image);
+      // Cloudder::delete($post->image);
+    // }
     return redirect()->route('home')->with(['message' => 'Successfully deleted']);
   }
 
@@ -123,7 +139,7 @@ class PostController extends Controller
     //$post = Post::where('id', $post_id)->first();
 
     //  $user->comment(Commentable $model, $comment = '', $rate = 0);
-    $user->comment($post, $comment, 5);
+    $user->comment($post, $comment, 0);
     return redirect()->route('home')->with(['message' => 'Comment Posted']);
 
   }

@@ -19,8 +19,8 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->integer('user_id')->references('id')->on('users')
                   ->onDelete('cascade');
-            $table->string('image')->nullable();
-            $table->string('video')->nullable();
+            $table->string('media_id')->nullable();
+            $table->string('type')->nullable();
         });
     }
 

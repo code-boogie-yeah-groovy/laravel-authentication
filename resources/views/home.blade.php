@@ -12,7 +12,7 @@
       </div>
       <div class="form-group">
         <span class="btn btn-default btn-file">
-          Add Photo/Video<input type="file" name="media" accept="image/*, video/mp4,video/x-m4v,video/*" class="input_image form-control">
+          Add Photo/Video<input type="file" name="media" accept="image/*, video/mp4,video/x-m4v,video/webm, video/*" class="input_image form-control">
         </span>
         <button type="submit" class="btn btn-primary">Post</button>
       </div>
@@ -30,11 +30,13 @@
         {{ $post->user->name }} posted this on {{ $post->created_at }}
       </div>
       <div class="post-media">
-        @if($post->image)
-        <img src="{{ $post->image }}" class="post-image"/>
-        @elseif($post->video)
+        @if($post->type == 'image')
+        <img src="{{ $post->url }}" class="post-image"/>
+        @elseif($post->type == 'video')
         <video width="400" class="post-video" controls>
-          <source src="{{ $post->video }}" type="video/mp4">
+          <source src="{{ $post->url }}" type="video/mp4">
+          <source src="{{ $post->url }}" type="video/webm">
+          <source src="{{ $post->url }}" type="video/ogv">
           Your browser does not support HTML5 video.
         </video>
         @endif

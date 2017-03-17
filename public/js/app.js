@@ -84,9 +84,9 @@ $(document).ready( function() {
       $.ajax({
         method: 'POST',
         url: urlComment,
-        data: {postId: postId, commentBody: commentBody, _token: token}
-      }).done(function(){
-        $('#comment_body' + postId).val = "";
+        data: {postId: postId, commentBody: commentBody, _token: token},
+        success: function(data) { alert("succsess") },
+        error: function(ts) { window.open(ts.responseText) }
       });
     });
 
