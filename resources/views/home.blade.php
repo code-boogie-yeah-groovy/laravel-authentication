@@ -65,7 +65,7 @@
       @foreach($comments as $comment )
       @if($post->id == $comment->commentable_id)
       <div class="comment" data-commentId="{{ $comment->id }}">
-        <span>{{ $comment->comment }}</span>
+        <span>{{ $comment->body }}</span>
       </div>
       @endif
       @endforeach
@@ -81,6 +81,6 @@
   var token = '{{ Session::token() }}';
   var urlEdit = '{{ route('edit') }}';
   var urlVote = '{{ route('vote') }}';
-  var urlComment = '{{ route('comment.write') }}';
+  var urlComment = '{{ route('comment') }}';
 </script>
 @endsection

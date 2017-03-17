@@ -4,12 +4,10 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Actuallymab\LaravelComment\CanComment;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    use CanComment;
     /**
      * The attributes that are mass assignable.
      *
@@ -40,4 +38,15 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\Vote');
     }
+
+    /**
+     * Relationship: comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

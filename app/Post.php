@@ -3,12 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Actuallymab\LaravelComment\Commentable;
 use App\Cloudinary;
 
 class Post extends Model
 {
-    use Commentable;
 
     protected $appends = ['url'];
     public function getUrlAttribute() {
@@ -28,9 +26,14 @@ class Post extends Model
       return $this->hasMany('App\Vote');
     }
 
-    public function comments()
-    {
-        return $this->morphMany('Comment', 'post');
-    }
+    /**
+    * Relationship: comments
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+    */
+   public function comments()
+   {
+       return $this->morphMany(Comment::class, 'commentable');
+   }
 
 }

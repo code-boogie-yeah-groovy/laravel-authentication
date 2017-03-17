@@ -22,7 +22,7 @@ class PostController extends Controller
   public function index()
   {
     $posts = Post::orderBy('created_at', 'desc')->get();
-    $comments = Comment::orderBy('created_at', 'desc')->get();
+    $comments = Comment::orderBy('created_at')->get();
     return view('home', ['posts' => $posts, 'comments' => $comments]);
   }
 
@@ -140,7 +140,11 @@ class PostController extends Controller
     //$post = Post::where('id', $post_id)->first();
 
     //  $user->comment(Commentable $model, $comment = '', $rate = 0);
-    $user->comment($post, $comment, 0);
+    // $user->comment($post, $comment, 0);
+    $post->comments()->create([
+      'user_id' => $user->id,
+      'body' => $comment
+    ]);
     return redirect()->route('home')->with(['message' => 'Comment Posted']);
 
   }

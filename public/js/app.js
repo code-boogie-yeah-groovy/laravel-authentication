@@ -79,13 +79,14 @@ $(document).ready( function() {
     });
 
     $('.post').find('.post-comment').on('click', function(event){
+      event.preventDefault();
       postId = event.target.parentNode.parentNode.dataset['postid'];
-      commentBody = $('#comment_body' . postId).val();
+      commentBody = $('#comment_body' + postId).val();
       $.ajax({
-        method: 'POST',
+        method: 'GET',
         url: urlComment,
         data: {postId: postId, commentBody: commentBody, _token: token},
-        success: function(data) { alert("succsess") },
+        success: function(data) { alert("success") },
         error: function(ts) { window.open(ts.responseText) }
       });
     });
