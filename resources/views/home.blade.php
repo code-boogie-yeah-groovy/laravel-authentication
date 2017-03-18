@@ -27,7 +27,7 @@
     <article class="post" data-postid="{{ $post->id }}" data-points="{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}">
       <div class="info">
         <img src="{{ $post->user->avatar }}" class="avatar-thumbnail img-responsive">
-        {{ $post->user->name }} posted this on {{ $post->created_at }}
+        <a href="#">{{ $post->user->name }} </a>posted this on {{ $post->created_at->format('M d, Y') }}
       </div>
       <div class="post-media">
         @if($post->type == 'image')
@@ -63,11 +63,9 @@
         <input type="hidden" value="{{ Session::token() }}" name="_token">
       </div>
       @foreach($comments as $comment )
-      @if($post->id == $comment->commentable_id)
-      <div class="comment" data-commentId="{{ $comment->id }}">
-        <span>{{ $comment->body }}</span>
-      </div>
-      @endif
+        @if($post->id == $comment->commentable_id)
+          @include('includes.comment-block')
+        @endif
       @endforeach
     </article>
     @endforeach

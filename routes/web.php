@@ -42,6 +42,16 @@ Route::get('/home', [
   'as' => 'home'
 ]);
 
+Route::get('/new',[
+  'uses' => 'PostController@indexNew',
+  'as' => 'new'
+]);
+
+Route::get('/trending', [
+  'uses' => 'PostController@indexTrending',
+  'as' => 'trending'
+]);
+
 Route::post('/createpost', [
   'uses' => 'PostController@postCreatePost',
   'as' => 'post.create'

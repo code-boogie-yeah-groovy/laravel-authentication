@@ -36,4 +36,20 @@ class Post extends Model
        return $this->morphMany(Comment::class, 'commentable');
    }
 
+   public function scopeOrderByVotes($query)
+    {
+        $query->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+            ->selectRaw('posts.*, count(votes.id) as aggregate')
+            ->groupBy('posts.id')
+            ->orderBy('aggregate', 'desc');
+    }
+
+    public function scopeOrderByComments($query)
+     {
+         $query->leftJoin('comments', 'comments.commentable_id', '=', 'posts.id')
+             ->selectRaw('posts.*, max(comments.created_at) as aggregate')
+             ->groupBy('posts.id')
+             ->orderBy('aggregate', 'desc');
+     }
+
 }

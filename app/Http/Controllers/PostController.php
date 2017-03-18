@@ -21,6 +21,20 @@ class PostController extends Controller
 
   public function index()
   {
+    $posts= Post::orderByVotes()->get();
+    $comments = Comment::orderBy('created_at')->get();
+    return view('home', ['posts' => $posts, 'comments' => $comments]);
+  }
+
+  public function indexTrending()
+  {
+    $posts= Post::orderByComments()->get();
+    $comments = Comment::orderBy('created_at')->get();
+    return view('home', ['posts' => $posts, 'comments' => $comments]);
+  }
+
+  public function indexNew()
+  {
     $posts = Post::orderBy('created_at', 'desc')->get();
     $comments = Comment::orderBy('created_at')->get();
     return view('home', ['posts' => $posts, 'comments' => $comments]);
@@ -53,14 +67,14 @@ class PostController extends Controller
         $post->media_id = $filename;
       } else {
         $message = 'Invalid media.';
-        return redirect()->route('home')->with(['message' => $message]);
+        return redirect()->route('new')->with(['message' => $message]);
       }
     }
     $message = 'There was an error.';
     if($request->user()->posts()->save($post)) {
       $message = 'Posted successfully.';
     }
-    return redirect()->route('home')->with(['message' => $message]);
+    return redirect()->route('new')->with(['message' => $message]);
   }
 
   public function getPostDelete($post_id)

@@ -60,9 +60,9 @@
                     @else
                       <!--Needs routing-->
                       <ul class="nav navbar-nav nav-pills" role="navigation">
-                        <li><a role="presentation" class="active" href="#">Popular</a></li>
-                        <li><a role="presentation" href="#">Trending</a></li>
-                        <li><a role="presentation"href="#">New</a></li>
+                        <li><a role="presentation" class="active" href="{{ route('home') }}">Popular</a></li>
+                        <li><a role="presentation" href="{{ route('trending') }}">Trending</a></li>
+                        <li><a role="presentation"href="{{ route('new') }}">New</a></li>
                         <li role="presentation" class="dropdown">
                           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             Categories<span class="caret"></span>
