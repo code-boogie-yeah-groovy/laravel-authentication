@@ -48,7 +48,10 @@
       <div class="interactions">
         <a href="#" class="vote">Upvote</a>|
         <a href="#" class="vote">Downvote</a>|
-        <a href="#" class="comment">Comment</a>|
+        <a href="javascript:toggleDiv('comments_div{{ $post->id }}');" class="comment">
+            Comments
+            <span class="points badge badge-default">{{ $post->comments->where('commentable_id', $post->id)->count() }}</span>
+        </a>|
         @if(Auth::user() == $post->user)
         <a href="#" class="edit-post">Edit</a>|
         <a href="#" class="delete-post" data-toggle="modal" data-target="#deleteModal">Delete</a>
@@ -57,16 +60,18 @@
         <a href="#" class="report">Report this post</a>
         @endif
       </div>
-      <div class="write-comment">
-        <input type="text" name="comment"  id="comment_body{{ $post->id }}">
-        <a href="#" class="post-comment">Post Comment</a>
-        <input type="hidden" value="{{ Session::token() }}" name="_token">
+      <div class="comments_div" id="comments_div{{ $post->id }}">
+        @foreach($comments as $comment )
+          @if($post->id == $comment->commentable_id)
+            @include('includes.comment-block')
+          @endif
+        @endforeach
+        <div class="write-comment">
+          <input type="text" name="comment"  id="comment_body{{ $post->id }}">
+          <a href="#" class="post-comment">Post Comment</a>
+          <input type="hidden" value="{{ Session::token() }}" name="_token">
+        </div>
       </div>
-      @foreach($comments as $comment )
-        @if($post->id == $comment->commentable_id)
-          @include('includes.comment-block')
-        @endif
-      @endforeach
     </article>
     @endforeach
   </div>
@@ -82,5 +87,10 @@
   var urlDelete = '{{ route('post.delete') }}';
   var urlVote = '{{ route('vote') }}';
   var urlComment = '{{ route('comment') }}';
+
+
+  function toggleDiv(divId) {
+    $("#"+divId).toggle();
+  }
 </script>
 @endsection

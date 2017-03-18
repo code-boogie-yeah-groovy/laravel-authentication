@@ -108,3 +108,7 @@ header {
     cursor: inherit;
     display: block;
 }
+
+.comments_div {
+    display: none;
+}

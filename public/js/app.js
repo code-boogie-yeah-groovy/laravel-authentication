@@ -95,7 +95,7 @@ $(document).ready( function() {
 
     $('.post').find('.post-comment').on('click', function(event){
       event.preventDefault();
-      postId = event.target.parentNode.parentNode.dataset['postid'];
+      postId = event.target.parentNode.parentNode.parentNode.dataset['postid'];
       commentBody = $('#comment_body' + postId).val();
       $.ajax({
         method: 'GET',
