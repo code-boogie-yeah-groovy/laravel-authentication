@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 <hr data-commentId="{{ $comment->id }}">
 <div class="comment" data-commentId="{{ $comment->id }}" id="sortable" class="list-unstyled ui-sortable">
     <strong class="pull-left primary-font">

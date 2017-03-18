@@ -77,9 +77,9 @@ class PostController extends Controller
     return redirect()->route('new')->with(['message' => $message]);
   }
 
-  public function getPostDelete($post_id)
+  public function postDeletePost(Request $request)
   {
-    $post = Post::where('id', $post_id)->first();
+    $post = Post::where('id', $request['postId'])->first();
     if(Auth::user() != $post->user){
       return redirect()->back();
     }

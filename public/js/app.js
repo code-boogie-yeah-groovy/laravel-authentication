@@ -24,6 +24,25 @@ $(document).ready( function() {
       });
     });
 
+    $('.post').find('.delete-post').on('click', function(event) {
+      event.preventDefault();
+      postId = event.target.parentNode.parentNode.dataset['postid'];
+    });
+
+    $('#modal-delete').on('click', function(){
+      $.ajax({
+        method: 'POST',
+        url: urlDelete,
+        data: { postId: postId, _token: token }
+      })
+      .done(function(msg){
+        setTimeout(function(){
+           location.reload();
+         }, 1000);
+        $('#deleteModal').modal('hide');
+      });
+    });
+
     $('.vote').on('click', function(event){
       event.preventDefault();
       var isVote = event.target.previousElementSibling == null;
@@ -67,10 +86,6 @@ $(document).ready( function() {
         } else {
             readURL(this);
         }
-    });
-
-    $('.delete-post').on('click', function(){
-      return confirm('delete?');
     });
 
     $('.comment').on('click', function() {

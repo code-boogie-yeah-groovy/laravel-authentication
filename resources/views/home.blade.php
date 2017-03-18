@@ -51,7 +51,7 @@
         <a href="#" class="comment">Comment</a>|
         @if(Auth::user() == $post->user)
         <a href="#" class="edit-post">Edit</a>|
-        <a  class="delete-post" data-toggle="confirmation" href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
+        <a href="#" class="delete-post" data-toggle="modal" data-target="#deleteModal">Delete</a>
         @endif
         @if(Auth::user() != $post->user)
         <a href="#" class="report">Report this post</a>
@@ -73,11 +73,13 @@
 </section>
 <!--Edit post Modal-->
 @include('edit-post')
+@include('includes.confirm-delete')
 </div>
 
 <script>
   var token = '{{ Session::token() }}';
   var urlEdit = '{{ route('edit') }}';
+  var urlDelete = '{{ route('post.delete') }}';
   var urlVote = '{{ route('vote') }}';
   var urlComment = '{{ route('comment') }}';
 </script>
