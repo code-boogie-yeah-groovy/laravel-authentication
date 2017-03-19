@@ -19,7 +19,7 @@ body {
 
 .big-avatar {
   inline: block;
-  max-height: 500px;
+  height: 10vw;
   width: auto;
 }
 
@@ -60,6 +60,10 @@ header {
 
 .post-text {
   padding: 2px;
+}
+
+.post-points {
+  margin-bottom: 10px;
 }
 
 .interactions {
@@ -109,6 +113,6 @@ header {
     display: block;
 }
 
-.comments_div {
+.comments_div, #post_div {
     display: none;
 }

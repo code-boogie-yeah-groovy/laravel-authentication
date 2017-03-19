@@ -47,13 +47,43 @@ $(document).ready( function() {
       event.preventDefault();
       var isVote = event.target.previousElementSibling == null;
       postId = event.target.parentNode.parentNode.dataset['postid'];
+      pointId = event.target.parentNode.previousElementSibling.childNodes[1];
+      pointVal = parseInt(pointId.innerText);
+      buttonVal = event.target.innerText;
+      url = window.location.href;
       $.ajax({
         method: 'POST',
         url: urlVote,
         data: {isVote: isVote, postId: postId, _token: token}
       })
       .done(function(){
-        event.target.innerText = isVote ? event.target.innerText == 'Upvote' ? 'You upvoted this post' : 'Upvote' : event.target.innerText == 'Downvote' ? 'You downvoted this post' : 'Downvote';
+        if(isVote) {
+          if(buttonVal == 'Upvote') {
+            event.target.innerText = 'You upvoted this post'
+            if(event.target.nextElementSibling.innerText == 'Downvote') {
+              pointId.innerText = pointVal + 1;
+            } else {
+              pointId.innerText = pointVal + 2;
+            }
+          } else {
+            event.target.innerText = 'Upvote'
+            pointId.innerText = pointVal - 1;
+          }
+        } else {
+          if(buttonVal == 'Downvote') {
+            event.target.innerText = 'You downvoted this post'
+            if(event.target.previousElementSibling.innerText == 'Upvote') {
+              pointId.innerText = pointVal - 1;
+            } else {
+              pointId.innerText = pointVal - 2;
+            }
+          } else {
+            event.target.innerText = 'Downvote'
+            pointId.innerText = pointVal + 1;
+          }
+        }
+
+        console.log(buttonVal);
         if (isVote) {
             event.target.nextElementSibling.innerText = 'Downvote';
         } else {

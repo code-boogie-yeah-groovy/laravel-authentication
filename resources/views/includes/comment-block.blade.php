@@ -5,7 +5,7 @@
       <a href="#">{{ $post->user->name }}</a>
     </strong>
     <small class="pull-left text-muted">
-      <span class="glyphicon glyphicon-time"></span>{{ $comment->created_at->format('M d, Y') }}
+      <span class="glyphicon glyphicon-time"></span>{{ $comment->created_at->format('M d, Y \a\t g:i A') }}
     </small>
     </br>
       <span class="ui-state-default">{{ $comment->body }}</span>

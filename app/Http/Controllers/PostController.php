@@ -21,23 +21,49 @@ class PostController extends Controller
 
   public function index()
   {
+    $section = "Most Popular";
     $posts= Post::orderByVotes()->get();
     $comments = Comment::orderBy('created_at')->get();
-    return view('home', ['posts' => $posts, 'comments' => $comments]);
+    $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
+    $upVoteArr = array_flatten($upVotes->toArray());
+    $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
+    $downVoteArr = array_flatten($downVotes->toArray());
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
   }
 
   public function indexTrending()
   {
+    $section = "Today's Trending";
     $posts= Post::orderByComments()->get();
     $comments = Comment::orderBy('created_at')->get();
-    return view('home', ['posts' => $posts, 'comments' => $comments]);
+    $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
+    $upVoteArr = array_flatten($upVotes->toArray());
+    $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
+    $downVoteArr = array_flatten($downVotes->toArray());
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
   }
 
   public function indexNew()
   {
+    $section = "Recent posts";
     $posts = Post::orderBy('created_at', 'desc')->get();
     $comments = Comment::orderBy('created_at')->get();
-    return view('home', ['posts' => $posts, 'comments' => $comments]);
+    $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
+    $upVoteArr = array_flatten($upVotes->toArray());
+    $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
+    $downVoteArr = array_flatten($downVotes->toArray());
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
+  }
+
+  public function indexUser()
+  {
+    $posts = User::find(user_id)->posts;
+    $comments = Comment::orderBy('created_at')->get();
+    $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
+    $upVoteArr = array_flatten($upVotes->toArray());
+    $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
+    $downVoteArr = array_flatten($downVotes->toArray());
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
   }
 
   public function postCreatePost( Request $request )
