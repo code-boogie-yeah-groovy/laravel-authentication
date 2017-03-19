@@ -32,8 +32,8 @@ Route::post('/updateaccount', [
   'as' => 'account.save'
 ]);
 
-Route::get('/account', [
-  'uses' => 'UserController@getAccount',
+Route::get('/account/{user_id}', [
+  'uses' => 'PostController@indexUser',
   'as' => 'account'
 ]);
 

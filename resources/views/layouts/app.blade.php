@@ -17,8 +17,8 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
     <!-- Scripts -->
-    <script src="js/jquery-3.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
     <script>
         window.Laravel = {!! json_encode([
@@ -105,7 +105,7 @@
                                     <li>
                                       <!--Needs routing -->
                                       <a href="#" data-toggle="modal" data-target="#createModal">Add Post</a>
-                                      <a href="{{ route('account') }}">View Profile</a>
+                                      <a href="{{ route('account', ['user_id' => Auth::user()->id]) }}">View Profile</a>
                                       <a href="{{ route('account.edit') }}">Edit Profile</a>
                                     </li>
                                     <li>
