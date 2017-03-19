@@ -59,9 +59,9 @@
             @include('includes.comment-block')
           @endif
         @endforeach
-        <div class="write-comment">
-          <input type="text" name="comment"  id="comment_body{{ $post->id }}">
-          <a href="#" class="post-comment">Post Comment</a>
+        <div class="write-comment input-group">
+          <input type="text" name="comment"  id="comment_body{{ $post->id }}" class="form-control comment-box" aria-describedby="addon_{{ $post->id }}">
+          <a href="#" class="post-comment input-group-addon btn btn-default" id="addon_{{ $post->id }}">Post Comment</a>
           <input type="hidden" value="{{ Session::token() }}" name="_token">
         </div>
       </div>

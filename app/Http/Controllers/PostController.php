@@ -175,15 +175,6 @@ class PostController extends Controller
     $comment = $request['commentBody'];
     $user = Auth::user();
     $post = Post::find($post_id);
-    // $this->validate($request, [
-      // 'comment' => 'required'
-    // ]);
-
-    //$user = User::find(1);
-    //$post = Post::where('id', $post_id)->first();
-
-    //  $user->comment(Commentable $model, $comment = '', $rate = 0);
-    // $user->comment($post, $comment, 0);
     $post->comments()->create([
       'user_id' => $user->id,
       'body' => $comment

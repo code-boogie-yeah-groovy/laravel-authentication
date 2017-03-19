@@ -83,7 +83,6 @@ $(document).ready( function() {
           }
         }
 
-        console.log(buttonVal);
         if (isVote) {
             event.target.nextElementSibling.innerText = 'Downvote';
         } else {
@@ -131,8 +130,12 @@ $(document).ready( function() {
         method: 'GET',
         url: urlComment,
         data: {postId: postId, commentBody: commentBody, _token: token},
-        success: function(data) { alert("success") },
-        error: function(ts) { window.open(ts.responseText) }
+        success: function() {
+          $('<div>Comment posted!</div>').insertBefore('#comment_body' + postId).delay(3000).fadeOut();
+          location.reload();
+          $('input[type=text]').val('');
+        },
+        error: function() { alert('There was an error. Comment not posted.') }
       });
     });
 

@@ -115,4 +115,19 @@ header {
 
 .comments_div, #post_div {
     display: none;
+    width: 80%;
+}
+
+.comment-text {
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.write-comment {
+  width: 100%;
+}
+
+.comment-box {
+  display: block;
+  width: 100%;
 }
