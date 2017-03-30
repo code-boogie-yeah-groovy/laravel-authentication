@@ -24,12 +24,14 @@ class Post extends Model
     }
 
     public function getWilsonAttribute() {
+      $up = DB::table('votes')->where('post_id', $this->id)->where('vote', 1)->count();
+      $down = DB::table('votes')->where('post_id', $this->id)->where('vote', 0)->count();
       $z = 1.281551565545;
-      $n = $this->points;
+      $n = $up+$down;
       if($n == 0) {
         return $this->attributes['wilson'] = 0;
       } else {
-        $p = DB::table('votes')->where('post_id', $this->id)->where('vote', 1)->count() / $n;
+        $p = $up / $n;
         $left = $p + 1/(2*$n)*$z*$z;
         $right = $z*sqrt($p*(1-$p)/$n + $z*$z/(4*$n*$n));
         $under = 1+1/$n*$z*$z;
@@ -56,15 +58,5 @@ class Post extends Model
    {
        return $this->morphMany(Comment::class, 'commentable');
    }
-
-   public function scopeOrderByTrend($query)
-     {
-       $query->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
-             ->selectRaw('posts.*, IFNULL(sum(votes.vote=1) - sum(votes.vote=0), 0) as aggregate')
-             ->groupBy('posts.id')
-             ->orderBy('aggregate', 'desc');
-     }
-
-
 
 }
