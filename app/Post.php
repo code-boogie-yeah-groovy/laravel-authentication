@@ -39,7 +39,7 @@ class Post extends Model
    public function scopeOrderByVotes($query)
     {
         $query->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
-            ->selectRaw('posts.*, count(votes.vote) as aggregate')
+            ->selectRaw('posts.*, IFNULL(sum(votes.vote=1) - sum(votes.vote=0), 0) as aggregate')
             ->groupBy('posts.id')
             ->orderBy('aggregate', 'desc');
     }

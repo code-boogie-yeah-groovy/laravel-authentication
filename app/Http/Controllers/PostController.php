@@ -29,7 +29,7 @@ class PostController extends Controller
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
     $downVoteArr = array_flatten($downVotes->toArray());
-    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);  
   }
 
   public function indexTrending()
