@@ -23,20 +23,26 @@ class PostController extends Controller
   public function index()
   {
     $section = "Most Popular";
-    $posts= Post::orderByVotes()->get();
-    $comments = Comment::orderBy('created_at')->get();
+    $posts = Post::all();
+    $posts = $posts->sortByDesc(function($post){
+      return $post->points;
+    });
+    $comments = Comment::orderBy('id')->get();
     $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
     $downVoteArr = array_flatten($downVotes->toArray());
-    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);  
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
   }
 
   public function indexTrending()
   {
     $section = "Today's Trending";
-    $posts= Post::orderByComments()->get();
-    $comments = Comment::orderBy('created_at')->get();
+    $posts = Post::all();
+    $posts = $posts->sortByDesc(function($post){
+      return $post->wilson;
+    });
+    $comments = Comment::orderBy('id')->get();
     $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
@@ -47,8 +53,8 @@ class PostController extends Controller
   public function indexNew()
   {
     $section = "Recent posts";
-    $posts = Post::orderBy('created_at', 'desc')->get();
-    $comments = Comment::orderBy('created_at')->get();
+    $posts = Post::orderBy('id', 'desc')->get();
+    $comments = Comment::orderBy('id')->get();
     $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
@@ -61,7 +67,7 @@ class PostController extends Controller
     $section = "My posts";
     $user = User::find($user_id);
     $posts = Post::where('user_id', $user_id)->get();
-    $comments = Comment::orderBy('created_at')->get();
+    $comments = Comment::orderBy('id')->get();
     $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
