@@ -17,7 +17,7 @@
           <span class="btn btn-default btn-file">
             Add Photo/Video<input type="file" name="media" accept="image/*, video/mp4,video/x-m4v,video/webm, video/*" class="input_image form-control">
           </span>
-          <button type="submit" class="btn btn-primary">Post</button>
+          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addTagModal">Post</button>
         </div>
         <input type="hidden" value="{{ Session::token() }}" name="_token">
       </form>
@@ -28,6 +28,7 @@
 <!--Edit post Modal-->
 @include('edit-post')
 @include('includes.confirm-delete')
+@include('includes.add-tag')
 </div>
 
 <script>

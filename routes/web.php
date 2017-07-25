@@ -76,3 +76,8 @@ Route::get('/writecomment', [
   'uses' => 'PostController@postWriteComment',
   'as' => 'comment'
 ]);
+
+Route::get('/add-tag', [
+  'uses' => 'PostController@postAddTag',
+  'as' => 'add-tag'
+]);
