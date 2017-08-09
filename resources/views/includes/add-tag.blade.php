@@ -12,22 +12,23 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Tag</h4>
       </div>
       <div class="modal-body">
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Dog</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Cat</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Bird</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Fish</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Exotic</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Trading</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Tutorial</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Help</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Others</button>
+        <a href="#" id="1" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Dog</a>
+        <a href="#" id="2" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Cat</a>
+        <a href="#" id="3" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Bird</a>
+        <a href="#" id="4" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Fish</a>
+        <a href="#" id="5" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Exotic</a>
+        <a href="#" id="7" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Trading</a>
+        <a href="#" id="9" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Tutorial</a>
+        <a href="#" id="8" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Help</a>
+        <a href="#" id="6" class="addTag btn btn-secondary btn-lg btn-block" data-dismiss="modal">Others</a>
       </div>
       <div class="modal-footer">
-        footer
+        @if(Session::has('post_ts'))
+          <p hidden>{{Session::get('post_ts')}}</p>
+        @endif
       </div>
     </div>
   </div>

@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use JD\Cloudder\Facades\Cloudder;
 use App\Comment;
 use App\User;
+use App\Post_tags;
+use App\Tags;
 
 
 class PostController extends Controller
@@ -32,7 +34,9 @@ class PostController extends Controller
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
     $downVoteArr = array_flatten($downVotes->toArray());
-    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
+    $post_tags = Post_tags::all();
+    $tags = Tags::all();
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr, 'post_tags' => $post_tags, 'tags' => $tags]);
   }
 
   public function indexTrending()
@@ -47,7 +51,9 @@ class PostController extends Controller
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
     $downVoteArr = array_flatten($downVotes->toArray());
-    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
+    $post_tags = Post_tags::all();
+    $tags = Tags::all();
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr, 'post_tags' => $post_tags, 'tags' => $tags]);
   }
 
   public function indexNew()
@@ -59,20 +65,24 @@ class PostController extends Controller
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
     $downVoteArr = array_flatten($downVotes->toArray());
-    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
+    $post_tags = Post_tags::all();
+    $tags = Tags::all();
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr, 'post_tags' => $post_tags, 'tags' => $tags]);
   }
 
   public function indexUser($user_id)
   {
     $section = "My posts";
     $user = User::find($user_id);
-    $posts = Post::where('user_id', $user_id)->get();
+    $posts = Post::where('user_id', $user_id)->orderBy('id', 'desc')->get();
     $comments = Comment::orderBy('id')->get();
     $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
     $upVoteArr = array_flatten($upVotes->toArray());
     $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
     $downVoteArr = array_flatten($downVotes->toArray());
-    return view('account', ['user' => $user, 'posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr]);
+    $post_tags = Post_tags::all();
+    $tags = Tags::all();
+    return view('account', ['user' => $user, 'posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr, 'post_tags' => $post_tags, 'tags' => $tags]);
   }
 
   public function postCreatePost( Request $request )
@@ -107,9 +117,23 @@ class PostController extends Controller
     }
     $message = 'There was an error.';
     if($request->user()->posts()->save($post)) {
+      //$this->postAddTag($date);
       $message = 'Posted successfully.';
     }
-    return redirect()->route('new')->with(['message' => $message]);
+    return redirect()->route('new')->with(['message' => $message, 'post_ts' => $date]);
+  }
+
+
+  public function postAddTag(Request $request)
+  {
+    $date = Carbon::createFromTimestamp($request['postTs'])->toDateTimeString();
+    $post_tag = new Post_tags();
+    $post = Post::where('created_at', $date)->first();
+    $post_id = $post->id;
+    $post_tag->post_id = $post_id;
+    $post_tag->tag_id = $request['tagId'];
+    $post_tag->save();
+    return redirect()->back();
   }
 
   public function postDeletePost(Request $request)
@@ -187,10 +211,6 @@ class PostController extends Controller
     ]);
     return redirect()->route('home')->with(['message' => 'Comment Posted']);
 
-  }
-
-  public function postAddTag()
-  {
   }
 
 }

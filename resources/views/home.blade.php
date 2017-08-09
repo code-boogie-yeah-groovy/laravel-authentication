@@ -17,7 +17,7 @@
           <span class="btn btn-default btn-file">
             Add Photo/Video<input type="file" name="media" accept="image/*, video/mp4,video/x-m4v,video/webm, video/*" class="input_image form-control">
           </span>
-          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addTagModal">Post</button>
+          <button type="submit" class="btn btn-primary">Post</button>
         </div>
         <input type="hidden" value="{{ Session::token() }}" name="_token">
       </form>
@@ -31,12 +31,22 @@
 @include('includes.add-tag')
 </div>
 
+@if( Session::has('message'))
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#addTagModal').modal({backdrop: 'static', keyboard: false});
+        });
+    </script>
+@endif
+
 <script>
   var token = '{{ Session::token() }}';
   var urlEdit = '{{ route('edit') }}';
   var urlDelete = '{{ route('post.delete') }}';
   var urlVote = '{{ route('vote') }}';
   var urlComment = '{{ route('comment') }}';
+  var urlAddTag = '{{ route('add.tag') }}';
+  var postTs = '{{ Session::get('post_ts') }}';
 
 
   function toggleDiv(divId) {

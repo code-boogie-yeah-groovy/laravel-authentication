@@ -49,6 +49,11 @@ class Post extends Model
       return $this->hasMany('App\Vote');
     }
 
+    public function postTags()
+    {
+      return $this->hasOne('App\Post_tags');
+    }
+
     /**
     * Relationship: comments
     *

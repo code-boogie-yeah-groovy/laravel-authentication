@@ -139,4 +139,20 @@ $(document).ready( function() {
       });
     });
 
+    $('.addTag').on('click', function(event){
+      event.preventDefault();
+      var tagId = event.target.id;
+      $.ajax({
+        method: 'POST',
+        url: urlAddTag,
+        data: { tagId: tagId, postTs: postTs, _token: token }
+      })
+      .done(function(msg){
+        setTimeout(function(){
+           location.reload();
+         }, 1);
+        $('#addTagModal').modal('hide');
+      });
+    });
+
 });

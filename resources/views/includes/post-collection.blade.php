@@ -22,6 +22,13 @@
       <div class="post-text">
         <p>{{ app('profanityFilter')->filter($post->body) }}</p>
       </div>
+      <div class="post-tags">
+        @foreach($post_tags as $post_tag )
+          @if($post->id == $post_tag->post_id)
+            <span id="post_tag_{{ $post->id }}" class="points badge badge-default">{{ $tags->where('id', $post_tag->tag_id)->first()->description }}</span>
+          @endif
+        @endforeach
+      </div>
       <div class="post-points">
         <span id="points_{{ $post->id }}" class="points badge badge-default">{{ $post->votes->where('vote',1)->count() - $post->votes->where('vote', 0)->count() }}</span>
         <span class="info">&nbsp;points</span>

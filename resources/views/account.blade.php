@@ -16,6 +16,7 @@
   </div>
 </div>
 @include('includes.post-collection')
+@include('includes.confirm-delete')
 @endsection
 
 <script>

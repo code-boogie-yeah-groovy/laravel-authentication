@@ -69,10 +69,10 @@
             <a href="/auth/google" class="btn btn-block btn-social btn-google">
               <span class="fa fa-google"></span> Sign in with Google
             </a>
-            <a href="/auth/twitter" class="btn btn-block btn-social btn-twitter">
+            <a href="/auth/twitter" class="btn btn-block btn-social btn-twitter" style="display:none;">
               <span class="fa fa-twitter"></span> Sign in with Twitter
             </a>
-            <a href="/auth/instagram" class="btn btn-block btn-social btn-instagram">
+            <a href="/auth/instagram" class="btn btn-block btn-social btn-instagram" style="display:none;">
               <span class="fa fa-instagram"></span> Sign in with Instagram
             </a>
 
