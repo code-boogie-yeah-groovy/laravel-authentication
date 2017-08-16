@@ -94,10 +94,11 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li>
-                              <form class="navbar-form" role="search">
+                              <form action="/search" method="POST" class="navbar-form" role="search">
                                 <div class="input-group add-on">
                                   <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
                                   <div class="input-group-btn">
+                                    <input type="hidden" value="{{ Session::token() }}" name="_token">
                                     <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                   </div>
                                 </div>
@@ -111,7 +112,6 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                      <!--Needs routing -->
                                       <a href="#" data-toggle="modal" data-target="#createModal">Add Post</a>
                                       <a href="{{ route('account', ['user_id' => Auth::user()->id]) }}">View Profile</a>
                                       <a href="{{ route('account.edit') }}">Edit Profile</a>

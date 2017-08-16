@@ -86,3 +86,11 @@ Route::post('/addtag', [
   'uses' => 'PostController@postAddTag',
   'as' => 'add.tag'
 ]);
+
+Route::any('/search',function(){
+    $q = Request::get( 'srch-term' );
+    $post = App\Post::where('body','LIKE','%'.$q.'%')->get();
+    if(count($post) > 0)
+        return view('search')->withDetails($post)->withQuery( $q );
+    else return view ('search')->withMessage('No Details found. Try to search again !');
+});
