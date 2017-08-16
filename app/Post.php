@@ -9,6 +9,8 @@ use App\Cloudinary;
 class Post extends Model
 {
 
+    protected $table = 'posts';
+    protected $primaryKey = 'id';
     protected $appends = ['url', 'points', 'wilson'];
     protected $canBeRated = true;
     protected $mustBeApproved = false;

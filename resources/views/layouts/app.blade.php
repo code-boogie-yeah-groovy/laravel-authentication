@@ -65,16 +65,24 @@
                             Categories<span class="caret"></span>
                           </a>
                           <ul class="dropdown-menu">
-                            <li><a href="#">Dogs</a></li>
-                            <li><a href="#">Cats</a></li>
-                            <li><a href="#">Birds</a></li>
-                            <li><a href="#">Fishes</a></li>
-                            <li><a href="#">Exotic</a></li>
-                            <li><a href="#">Others</a></li>
+                            <li><a href="{{ route('tag', 1) }}">Dogs</a></li>
+                            <li><a href="{{ route('tag', 2) }}">Cats</a></li>
+                            <li><a href="{{ route('tag', 3) }}">Birds</a></li>
+                            <li><a href="{{ route('tag', 4) }}">Fishes</a></li>
+                            <li><a href="{{ route('tag', 5) }}">Exotic</a></li>
+                            <li><a href="{{ route('tag', 6) }}">Others</a></li>
                           </ul>
                         </li>
-                        <li><a role="presentation"href="#">Forum</a></li>
-                        <li><a role="presentation"href="#">Trading</a></li>
+                        <li>
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Forum<span class="caret"></span>
+                          </a>
+                            <ul class="dropdown-menu">
+                              <li><a role="presentation"href="{{ route('tag', 8) }}">Help</a></li>
+                              <li><a role="presentation"href="{{ route('tag', 9) }}">Tutorial</a></li>
+                            </ul>
+                        </li>
+                        <li><a role="presentation"href="{{ route('tag', 7) }}">Trading</a></li>
                       </ul>
                     @endif
 

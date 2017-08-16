@@ -52,6 +52,11 @@ Route::get('/trending', [
   'as' => 'trending'
 ]);
 
+Route::get('/tag/{tag_id}', [
+  'uses' => 'PostController@indexTag',
+  'as' => 'tag'
+]);
+
 Route::post('/createpost', [
   'uses' => 'PostController@postCreatePost',
   'as' => 'post.create'

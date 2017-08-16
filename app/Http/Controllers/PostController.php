@@ -85,6 +85,20 @@ class PostController extends Controller
     return view('account', ['user' => $user, 'posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr, 'post_tags' => $post_tags, 'tags' => $tags]);
   }
 
+  public function indexTag($tag_id)
+  {
+    $post_tags = Post_tags::where('tag_id', $tag_id)->get();
+    $tags = Tags::find($tag_id);
+    $section = Tags::select('description')->where('id', $tag_id)->value('description');
+    $posts = Post::leftJoin('post_tags', 'post_tags.post_id', '=', 'posts.id')->where('tag_id', $tag_id)->get();
+    $comments = Comment::orderBy('id')->get();
+    $upVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 1)->get();
+    $upVoteArr = array_flatten($upVotes->toArray());
+    $downVotes = Vote::select('post_id')->where('user_id', Auth::user()->id)->where('vote', 0)->get();
+    $downVoteArr = array_flatten($downVotes->toArray());
+    return view('home', ['posts' => $posts, 'comments' => $comments, 'section' => $section, 'upVotes' => $upVoteArr, 'downVotes' => $downVoteArr, 'post_tags' => $post_tags, 'tags' => $tags]);
+  }
+
   public function postCreatePost( Request $request )
   {
     //Validation
